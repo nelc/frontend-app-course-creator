@@ -1,8 +1,8 @@
 
-# This workflow deploys a Micro Frontend (MFE) application to an AWS S3 bucket
+# This workflow deploys a Micro Frontend (MFE) application to a bucket
 #
 # Purpose:
-# - Deploys the compiled frontend assets to an S3 bucket for hosting
+# - Deploys the compiled frontend assets to a bucket for hosting
 # - Uses a reusable workflow from nelc/actions-hub
 # - Can target either staging or production environments
 #
@@ -31,7 +31,7 @@ on:
           - prod
           - advanced
       BUCKET_NAME:
-        description: 'S3 bucket (advanced only)'
+        description: 'bucket (advanced only)'
         required: false
         type: string
         default: ''
@@ -44,7 +44,7 @@ jobs:
   deploy_advanced_config:
     name: Deploy (advanced)
     if: inputs.environment == 'advanced'
-    uses: nelc/actions-hub/.github/workflows/mfe-bucket-deployment.yml@jlc/use-gcp-bucket
+    uses: nelc/actions-hub/.github/workflows/mfe-bucket-deployment.yml@main
     with:
       ENVIRONMENT: ${{ inputs.environment }}
       BUCKET_NAME: ${{ inputs.BUCKET_NAME }}
@@ -54,7 +54,7 @@ jobs:
   deploy_predefined_env:
     name: Deploy (stage/prod)
     if: inputs.environment != 'advanced'
-    uses: nelc/actions-hub/.github/workflows/mfe-bucket-deployment.yml@jlc/use-gcp-bucket
+    uses: nelc/actions-hub/.github/workflows/mfe-bucket-deployment.yml@main
     with:
       ENVIRONMENT: ${{ inputs.environment }}
     secrets: inherit
